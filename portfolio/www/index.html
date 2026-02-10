@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeoj Artjohn Lacrete — Full-Stack Developer &amp; AI Enthusiast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --surface:#12121a;
+  --surface-2:#1a1a26;
+  --border:#222233;
+  --text:#e4e4ed;
+  --text-muted:#8888a4;
+  --accent:#6C63FF;
+  --accent-light:#8b83ff;
+  --accent-glow:rgba(108,99,255,.15);
+  --gradient:linear-gradient(135deg,#6C63FF,#3b82f6,#06b6d4);
+  --radius:12px;
+  --transition:.3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:var(--accent-light);text-decoration:none;transition:color var(--transition)}
+a:hover{color:#fff}
+img{max-width:100%;display:block}
+
+/* ── Animated Background ──────────────────────────── */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 50%,rgba(108,99,255,.06) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(59,130,246,.05) 0%,transparent 50%),
+    radial-gradient(circle at 50% 80%,rgba(6,182,212,.04) 0%,transparent 50%);
+}
+
+/* ── Layout ───────────────────────────────────────── */
+.container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+section{padding:80px 0}
+
+/* ── Navigation ───────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(10,10,15,.75);
+  border-bottom:1px solid var(--border);
+}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-weight:700;font-size:1.25rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text-muted);font-size:.875rem;font-weight:500;letter-spacing:.02em;transition:color var(--transition)}
+.nav-links a:hover{color:#fff}
+.nav-toggle{display:none;background:0;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* ── Hero ─────────────────────────────────────────── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:64px;
+}
+.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-glow);border:1px solid rgba(108,99,255,.25);
+  padding:6px 16px;border-radius:100px;font-size:.8rem;color:var(--accent-light);
+  margin-bottom:20px;
+}
+.hero-badge span{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:3.2rem;font-weight:800;line-height:1.1;margin-bottom:16px}
+.hero h1 .gradient{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .tagline{font-size:1.15rem;color:var(--text-muted);margin-bottom:32px;max-width:480px}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:100px;font-weight:600;font-size:.9rem;
+  transition:all var(--transition);border:0;cursor:pointer;
+}
+.btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 24px rgba(108,99,255,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,99,255,.45);color:#fff}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent-light);transform:translateY(-2px)}
+.hero-visual{display:flex;justify-content:center;align-items:center}
+.hero-img-wrap{
+  position:relative;width:380px;height:380px;border-radius:50%;
+  background:var(--gradient);padding:3px;
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hero-img-wrap img{border-radius:50%;width:100%;height:100%;object-fit:cover;background:var(--surface)}
+
+/* ── Section Titles ───────────────────────────────── */
+.section-header{text-align:center;margin-bottom:56px}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.8rem;font-weight:600;color:var(--accent-light);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;
+}
+.section-title{font-size:2.2rem;font-weight:800}
+.section-title .gradient{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-desc{color:var(--text-muted);margin-top:8px;max-width:560px;margin-inline:auto}
+
+/* ── About Cards ──────────────────────────────────── */
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.about-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;transition:all var(--transition);
+}
+.about-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(108,99,255,.08)}
+.about-icon{font-size:1.6rem;margin-bottom:12px}
+.about-card h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+.about-card p{font-size:.875rem;color:var(--text-muted)}
+
+/* ── Tech Stack ───────────────────────────────────── */
+.tech-category{margin-bottom:40px}
+.tech-category h3{font-size:1rem;font-weight:600;color:var(--text-muted);margin-bottom:16px;text-align:center}
+.tech-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+}
+.tech-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:10px 20px;border-radius:100px;font-size:.85rem;font-weight:500;
+  transition:all var(--transition);
+}
+.tech-chip:hover{border-color:var(--accent);background:var(--accent-glow);transform:translateY(-2px)}
+.tech-chip img{width:20px;height:20px;border-radius:4px}
+
+/* ── Projects ─────────────────────────────────────── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.project-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px;transition:all var(--transition);
+  display:flex;flex-direction:column;
+}
+.project-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 16px 48px rgba(108,99,255,.1)}
+.project-emoji{font-size:2.4rem;margin-bottom:16px}
+.project-card h3{font-size:1.25rem;font-weight:700;margin-bottom:4px}
+.project-award{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;
+  padding:4px 12px;border-radius:100px;font-size:.7rem;font-weight:700;
+  margin:8px 0 12px;width:fit-content;
+}
+.project-card p{font-size:.875rem;color:var(--text-muted);flex:1}
+.project-features{list-style:none;margin:14px 0;display:flex;flex-direction:column;gap:6px}
+.project-features li{font-size:.825rem;color:var(--text-muted);padding-left:20px;position:relative}
+.project-features li::before{content:'→';position:absolute;left:0;color:var(--accent)}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.project-tag{
+  font-size:.7rem;font-weight:600;
+  padding:4px 10px;border-radius:100px;
+  background:var(--accent-glow);color:var(--accent-light);
+  border:1px solid rgba(108,99,255,.2);
+}
+
+/* ── Education ────────────────────────────────────── */
+.edu-timeline{max-width:700px;margin:0 auto}
+.edu-item{
+  display:flex;gap:20px;padding:24px 0;
+  border-bottom:1px solid var(--border);
+}
+.edu-item:last-child{border:0}
+.edu-dot{
+  width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px;
+  flex-shrink:0;box-shadow:0 0 12px rgba(108,99,255,.4);
+}
+.edu-item h4{font-weight:600;margin-bottom:2px}
+.edu-item .edu-place{font-size:.875rem;color:var(--accent-light)}
+.edu-item .edu-year{font-size:.8rem;color:var(--text-muted);margin-top:2px}
+
+.certs-wrap{margin-top:40px;text-align:center}
+.certs-wrap h3{font-size:1rem;font-weight:600;margin-bottom:16px;color:var(--text-muted)}
+.cert-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.cert-chip{
+  font-size:.75rem;font-weight:500;
+  padding:6px 14px;border-radius:100px;
+  background:var(--surface-2);border:1px solid var(--border);
+  color:var(--text-muted);transition:all var(--transition);
+}
+.cert-chip:hover{border-color:var(--accent);color:var(--accent-light)}
+
+/* ── Contact ──────────────────────────────────────── */
+.contact-cards{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.contact-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:16px 28px;border-radius:var(--radius);
+  transition:all var(--transition);
+  text-decoration:none;color:var(--text);
+}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(108,99,255,.1);color:#fff}
+.contact-card svg{width:20px;height:20px;color:var(--accent-light);flex-shrink:0}
+.contact-card span{font-weight:600;font-size:.9rem}
+
+/* ── Footer ───────────────────────────────────────── */
+footer{
+  text-align:center;padding:40px 0;
+  border-top:1px solid var(--border);
+  color:var(--text-muted);font-size:.85rem;
+}
+footer .code-line{
+  font-family:'Fira Code',monospace;
+  font-size:.8rem;color:var(--accent);
+  margin-bottom:12px;
+}
+
+/* ── Responsive ───────────────────────────────────── */
+@media(max-width:768px){
+  .hero-content{grid-template-columns:1fr;text-align:center}
+  .hero h1{font-size:2.2rem}
+  .hero .tagline{margin-inline:auto}
+  .hero-buttons{justify-content:center}
+  .hero-visual{order:-1}
+  .hero-img-wrap{width:240px;height:240px}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:rgba(10,10,15,.95);padding:24px;gap:20px;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+  section{padding:60px 0}
+  .section-title{font-size:1.8rem}
+  .projects-grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero h1{font-size:1.75rem}
+  .contact-cards{flex-direction:column;align-items:center}
+}
+
+/* ── Animations ───────────────────────────────────── */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">YAL</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#tech">Tech Stack</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div>
+        <div class="hero-badge"><span></span> Available for opportunities</div>
+        <h1>Hi, I'm <span class="gradient">Yeoj Artjohn Lacrete</span></h1>
+        <p class="tagline">Full-Stack Developer · AI Enthusiast · Inclusive Tech Advocate — Building accessible web applications with AI integration.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+          <a href="#contact" class="btn btn-outline">Let's Connect</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" alt="Coding animation">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🚀 About Me</div>
+      <h2 class="section-title">Passionate About <span class="gradient">Inclusive Technology</span></h2>
+      <p class="section-desc">Always learning, always improving — driven by the belief that technology should empower everyone.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card fade-up">
+        <div class="about-icon">🎯</div>
+        <h3>Current Focus</h3>
+        <p>AI-Powered Web Applications &amp; Automation — creating intelligent solutions that make a real difference.</p>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-icon">💡</div>
+        <h3>Passions</h3>
+        <p>AI Automation, Inclusive Technology, and Full-Stack Development across modern frameworks.</p>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-icon">🏆</div>
+        <h3>Achievement</h3>
+        <p>Student's Choice Award Winner for IT Capstone Project — recognized by peers for innovation.</p>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-icon">👥</div>
+        <h3>Organization</h3>
+        <p>Active member of the League of Information Technology Students at UE Caloocan.</p>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-icon">🎓</div>
+        <h3>Education</h3>
+        <p>BS Information Technology at the University of the East — Class of 2026.</p>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-icon">🌱</div>
+        <h3>Mindset</h3>
+        <p>Always learning, always improving — embracing challenges as opportunities for growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section id="tech">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🛠️ Tech Arsenal</div>
+      <h2 class="section-title">Tools I <span class="gradient">Work With</span></h2>
+    </div>
+
+    <div class="tech-category fade-up">
+      <h3>💻 Languages &amp; Frameworks</h3>
+      <div class="tech-grid">
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=html" alt="">HTML5</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=css" alt="">CSS3</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=js" alt="">JavaScript</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=nodejs" alt="">Node.js</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=react" alt="">React</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=nextjs" alt="">Next.js</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=python" alt="">Python</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=cpp" alt="">C++</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=cs" alt="">C#</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=php" alt="">PHP</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=laravel" alt="">Laravel</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=bootstrap" alt="">Bootstrap</div>
+      </div>
+    </div>
+
+    <div class="tech-category fade-up">
+      <h3>🔧 Tools &amp; Technologies</h3>
+      <div class="tech-grid">
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=git" alt="">Git</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=github" alt="">GitHub</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=vscode" alt="">VS Code</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=wordpress" alt="">WordPress</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=gcp" alt="">Google Cloud</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=aws" alt="">AWS</div>
+      </div>
+    </div>
+
+    <div class="tech-category fade-up">
+      <h3>🤖 AI &amp; Data Science</h3>
+      <div class="tech-grid">
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=tensorflow" alt="">TensorFlow</div>
+        <div class="tech-chip"><img src="https://skillicons.dev/icons?i=sklearn" alt="">Scikit-learn</div>
+        <div class="tech-chip"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" alt="">NumPy</div>
+        <div class="tech-chip"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg" alt="">Pandas</div>
+        <div class="tech-chip"><img src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="">MediaPipe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🏆 Featured Work</div>
+      <h2 class="section-title">Projects I've <span class="gradient">Built</span></h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-emoji">🎓</div>
+        <h3>Signademy</h3>
+        <div class="project-award">⭐ Student's Choice Award</div>
+        <p>Supporting inclusive education for deaf-mute individuals — a web-based platform teaching ASL.</p>
+        <ul class="project-features">
+          <li>Interactive sign cards for visual learning</li>
+          <li>Real-time gesture detection via camera</li>
+          <li>Gamified challenges with accuracy streaks</li>
+          <li>AI-powered feedback using custom MediaPipe model</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">MediaPipe</span>
+          <span class="project-tag">Gemini API</span>
+          <span class="project-tag">Computer Vision</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-emoji">📚</div>
+        <h3>StudyVerse</h3>
+        <p>An AI-powered study companion — an intelligent learning platform for students, educators, and lifelong learners.</p>
+        <ul class="project-features">
+          <li>Auto-generated quizzes from any material</li>
+          <li>Smart flashcards with spaced repetition</li>
+          <li>Comprehensive AI-generated notes</li>
+          <li>Instant text summaries</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">Gemini API</span>
+          <span class="project-tag">AI / ML</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-emoji">🍳</div>
+        <h3>What's Cooking AI</h3>
+        <p>An intelligent cooking assistant that suggests recipes based on your available ingredients.</p>
+        <ul class="project-features">
+          <li>Smart recipe recommendations</li>
+          <li>Ingredient-based search</li>
+          <li>Detailed cooking instructions</li>
+          <li>Alternative ingredient suggestions</li>
+          <li>Personalized recipe matching</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">Gemini API</span>
+          <span class="project-tag">AI / ML</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up" style="background:linear-gradient(135deg,rgba(108,99,255,.06),rgba(59,130,246,.06));border-style:dashed">
+        <div class="project-emoji">🚀</div>
+        <h3>More Coming Soon…</h3>
+        <p>Currently learning and working on exciting new projects in these areas:</p>
+        <ul class="project-features">
+          <li>AI Automation &amp; Integration — advanced workflows</li>
+          <li>Database Technologies — SQL, NoSQL, optimization</li>
+          <li>Cloud-based applications</li>
+          <li>Open-source contributions</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">🎓 Background</div>
+      <h2 class="section-title">Education &amp; <span class="gradient">Certifications</span></h2>
+    </div>
+    <div class="edu-timeline fade-up">
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <h4>BS Information Technology</h4>
+          <div class="edu-place">University of the East – Caloocan</div>
+          <div class="edu-year">2022 – 2026</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <h4>STEM Strand</h4>
+          <div class="edu-place">University of the East – Caloocan</div>
+          <div class="edu-year">2020 – 2022</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <h4>Junior High School</h4>
+          <div class="edu-place">Longos National High School</div>
+          <div class="edu-year">2017 – 2020</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="certs-wrap fade-up">
+      <h3>📜 Certifications</h3>
+      <div class="cert-chips">
+        <span class="cert-chip">AI for Beginners — HP LIFE</span>
+        <span class="cert-chip">Ethical Hacking — UE Caloocan</span>
+        <span class="cert-chip">Google Cloud Digital Transformation</span>
+        <span class="cert-chip">Cybersecurity — Cisco</span>
+        <span class="cert-chip">AWS MemoryDB Redis</span>
+        <span class="cert-chip">Data Science — HP LIFE</span>
+        <span class="cert-chip">Project Management — SimpliLearn</span>
+        <span class="cert-chip">Software Engineering — Knowledge Graphs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">📫 Get in Touch</div>
+      <h2 class="section-title">Let's <span class="gradient">Connect</span></h2>
+      <p class="section-desc">I'm always open to discussing new projects, creative ideas, or opportunities to be part of something great.</p>
+    </div>
+    <div class="contact-cards fade-up">
+      <a href="mailto:yeojlacrete@gmail.com" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span>yeojlacrete@gmail.com</span>
+      </a>
+      <a href="https://linkedin.com/in/yeoj-lacrete" target="_blank" rel="noopener" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://github.com/Lart101" target="_blank" rel="noopener" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="code-line">Eat() → Sleep() → Code() → Repeat()</div>
+    <p>Building accessible technology for everyone through AI-powered solutions.</p>
+    <p style="margin-top:8px;font-size:.75rem">© 2026 Yeoj Artjohn Lacrete. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// Scroll-triggered fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+});
+</script>
+</body>
+</html>
